@@ -1,26 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="GradleLocalSettings">
-    <option name="modificationStamps">
-      <map>
-        <entry key="$USER_HOME$/Downloads/gradleTrueExample/gradleTrueExample" value="1507625048000" />
-        <entry key="$PROJECT_DIR$/../expProject" value="3015059017720" />
-        <entry key="$PROJECT_DIR$/../footy-center" value="1518671314353" />
-        <entry key="$PROJECT_DIR$/../my-tezis-project" value="3015057162181" />
-        <entry key="$PROJECT_DIR$/../sales" value="4521709484778" />
-        <entry key="$PROJECT_DIR$/../test-tezis" value="3042750871500" />
-        <entry key="$PROJECT_DIR$/../tezis" value="3042090375177" />
-        <entry key="$PROJECT_DIR$/../tezis-sandbox" value="3019036466820" />
-        <entry key="$PROJECT_DIR$/../tezis-sandboxx" value="3036303578591" />
-        <entry key="$PROJECT_DIR$/../tezis-sandboxxx" value="3042088974116" />
-        <entry key="$PROJECT_DIR$/../tezis_ext" value="3013190935449" />
-        <entry key="$PROJECT_DIR$/../timesheets" value="3015625754490" />
-        <entry key="$PROJECT_DIR$/../timesheets-master-f47b843124a6fd5e48a54a5a6deda46afd7f0f2c" value="2996250016000" />
-      </map>
-    </option>
-    <option name="externalProjectsViewState">
-      <projects_view />
-    </option>
+  <component name="EntryPointsManager">
+    <entry_points version="2.0" />
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
