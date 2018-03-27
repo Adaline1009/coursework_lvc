@@ -1,7 +1,12 @@
 package model;
 
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 /**
  * Created by Adelya on 27.03.2018.
@@ -9,16 +14,21 @@ import java.util.Set;
 public class Line extends Thread {
     private Set<AbstractDevice> devices;
     private boolean isActive;
-    private AbstractDevice controller;
-    private Map<Integer, Message> messages;
 
-    public Line(Set<AbstractDevice> devices, boolean isActive, AbstractDevice controller) {
+    private AbstractDevice controller;
+    private TreeMap<Integer, Message> messages;
+
+    ///НУЖЕН ЛИ СЕРВЕРСОКЕТ
+    private ServerSocket serverSocket;
+
+    public Line(Set<AbstractDevice> devices, boolean isActive, AbstractDevice controller, ServerSocket serverSocket) {
         this.devices = devices;
         this.isActive = isActive;
         this.controller = controller;
+        this.serverSocket = serverSocket;
 
     }
-
+//METHOD INITIALOZER DEVICES THREAD!!!!!!!
     public boolean isActive() {
         return isActive;
     }
@@ -35,11 +45,19 @@ public class Line extends Thread {
         this.devices = devices;
     }
 
-    public Map<Integer, Message> getMessages() {
+    public AbstractDevice getController() {
+        return controller;
+    }
+
+    public void setController(AbstractDevice controller) {
+        this.controller = controller;
+    }
+
+    public TreeMap<Integer, Message> getMessages() {
         return messages;
     }
 
-    public void setMessages(Map<Integer, Message> messages) {
+    public void setMessages(TreeMap<Integer, Message> messages) {
         this.messages = messages;
     }
 
@@ -52,6 +70,28 @@ public class Line extends Thread {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
+                }
+            }
+            if (!messages.isEmpty()) {
+                try {
+                for (Map.Entry<Integer, Message> entry : messages.entrySet()) {
+
+                    //int key = entry.getKey();
+                    Message message = entry.getValue();
+
+                    for (AbstractDevice device : devices) {
+                         Socket client = null;//чтоб закомитить без ошибки
+                      //  Socket client = device.getSocket();
+                        ObjectOutputStream objectOutputStream = new ObjectOutputStream(client.getOutputStream());
+                        objectOutputStream.writeObject(message);
+                        objectOutputStream.flush();
+
+
+                    }
+                    // ...
+                }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
 
