@@ -1,8 +1,10 @@
 package model;
 
 import com.sun.istack.internal.NotNull;
+import com.sun.istack.internal.Nullable;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
@@ -32,8 +34,10 @@ public abstract class AbstractDevice {
 
     /**
      * Логика обработки пришедших команд
+     *      null - нет ответа
      */
-    abstract void processCommand(@NotNull String command);
+    @Nullable
+    abstract String processCommand(@NotNull String command);
 
     public int getPortNumber() {
         return port;
@@ -47,10 +51,14 @@ public abstract class AbstractDevice {
                 l("Line has been connected");
 
                 BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                String command = null;
+                DataOutputStream out = new DataOutputStream(connection.getOutputStream());
+                String command;
                 while (true) {
                     command = in.readLine();
-                    processCommand(command);
+                    String answer = processCommand(command);
+                    if (answer != null) {
+                        out.writeUTF(answer);
+                    }
                 }
             } catch (IOException e) {
                 e.printStackTrace();
